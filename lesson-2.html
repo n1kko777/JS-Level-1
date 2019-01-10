@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Урок 2</title>
+</head>
+
+<body>
+  <script>
+    // Задание 1. Почему код даёт именно такие результаты?
+    var a = 1,
+      b = 1,
+      c, d;
+    c = ++a;
+    alert(c); // 2 - сначала идет увеличение значения переменной a на 1,
+    // затем присвоения данного значения переменнос c 
+    d = b++;
+    alert(d); // 1 - здесь наоборот, мы снача записываем значение переменной, потом 
+    // увеличиваем ее на 1
+    c = (2 + ++a);
+    alert(c); // 5 - сначала происходит увеличения переменной a на 1
+    // затем добавляется 2
+    d = (2 + b++);
+    alert(d); // 4 - обратная ситуация, сначала взяли имеющие значение переменной b
+    // прибавили к нему 2 , вывели результат, увеличили значение 
+    // переменной b на 1
+    alert(a); // 3 - оператор увеличение на 1 был вызван 3 раза
+    alert(b); // 3 - оператор увеличение на 1 был вызван 3 раза
+
+    // Задание 2.  Чему будет равен x в примере ниже?
+
+    var a = 2;
+    var x = 1 + (a *= 2); // x = 5
+
+    alert(x);
+
+    // Задание 3.
+
+    var a = -1,
+      b = 2;
+
+    if (a >= 0 && b >= 0) {
+      alert(a - b);
+    } else if (a < 0 && b < 0) {
+      alert(a * b);
+    } else {
+      alert(a + b);
+    }
+
+    // Задание 4.
+
+    var a = Math.floor(Math.random() * 15);
+
+    switch (a) {
+      case 0:
+        document.write(a++ + ", ");
+      case 1:
+        document.write(a++ + ", ");
+      case 2:
+        document.write(a++ + ", ");
+      case 3:
+        document.write(a++ + ", ");
+      case 4:
+        document.write(a++ + ", ");
+      case 5:
+        document.write(a++ + ", ");
+      case 6:
+        document.write(a++ + ", ");
+      case 7:
+        document.write(a++ + ", ");
+      case 8:
+        document.write(a++ + ", ");
+      case 9:
+        document.write(a++ + ", ");
+      case 10:
+        document.write(a++ + ", ");
+      case 11:
+        document.write(a++ + ", ");
+      case 12:
+        document.write(a++ + ", ");
+      case 13:
+        document.write(a++ + ", ");
+      case 14:
+        document.write(a++ + ", ");
+      case 15:
+        document.write(a);
+        break;
+
+      default:
+        break;
+    }
+
+    // Задание 5.
+
+    function sum(x, y) {
+      return x + y;
+    }
+
+    function diff(x, y) {
+      return x - y;
+    }
+
+    function mult(x, y) {
+      return x * y;
+    }
+
+    function div(x, y) {
+      return x / y;
+    }
+
+    // console.log(sum(1, 1));
+    // console.log(diff(1, 1));
+    // console.log(mult(1, 1));
+    // console.log(div(1, 1));
+
+    // Задание 6.
+
+    function mathOperation(arg1, arg2, operation) {
+      var result;
+      switch (operation) {
+        case 'sum':
+          result = sum(arg1, arg2);
+          break;
+        case 'diff':
+          result = diff(arg1, arg2);
+          break;
+        case 'mult':
+          result = mult(arg1, arg2);
+          break;
+        case 'div':
+          result = div(arg1, arg2);
+          break;
+
+        default:
+
+          alert("Нет такой функции!");
+
+          break;
+      }
+
+      return result;
+    }
+
+    console.log(mathOperation(10, 12, 'sum'));
+    console.log(mathOperation(10, 12, 'diff'));
+    console.log(mathOperation(10, 12, 'mult'));
+    console.log(mathOperation(10, 12, 'div'));
+
+    // Задание 7.
+
+    console.log(null == 0);
+    console.log(null >= 0);
+    console.log(null > 0);
+
+    console.log("null - " + typeof null + '\n' + '0 - ' + typeof 0);
+
+    // Не совсем понял почему так, но нашел вот какую чтатью: https://habr.com/company/ruvds/blog/337732/
+    // Но там заумно написано.
+
+
+
+    // Задание 8.
+
+    function power(val, pow) {
+      if (pow != 1) {
+        return val * power(val, pow - 1);
+      } else {
+        return val;
+      }
+    }
+
+    alert(power(2, 3)); // 8
+  </script>
+</body>
+
+</html>
