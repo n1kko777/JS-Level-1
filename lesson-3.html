@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Урок 3</title>
+</head>
+
+<body>
+  <script>
+    // Задание 1
+    console.log('Задание 1');
+    var i = 0;
+    var n = 100;
+    while (i <= n) {
+      console.log(i++ + " ");
+    }
+
+    // Задание 2
+    console.log('Задание 2');
+    var task2 = 0;
+    do {
+      if (task2 == 0) {
+        console.log(`"${task2}" - это ноль`);
+      } else if (task2 % 2 == 0) {
+        console.log(`"${task2}" - четное число`);
+      } else {
+        console.log(`"${task2}" - нечетное число`);
+      }
+      task2++;
+    } while (task2 <= 10);
+
+    // Задание 3
+    console.log('Задание 3');
+    for(var number = 0; number <= 9; console.log(number++ + " ")){/*здесь пусто*/}
+
+    // Задание 4
+    console.log('Задание 4');
+    var pyramid = "";
+    for(var i = 1; i <= 20; i++){
+				pyramid += "x";
+				console.log(pyramid);
+			}
+  </script>
+</body>
+
+</html>
