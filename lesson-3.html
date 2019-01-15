@@ -12,10 +12,24 @@
   <script>
     // Задание 1
     console.log('Задание 1');
-    var i = 0;
+    var i = 2;
     var n = 100;
     while (i <= n) {
-      console.log(i++ + " ");
+      if (checkSimple(i)) {
+        console.log(i + " ");
+      }
+      i++;
+    }
+
+    function checkSimple(params) {
+      var simple = 2;
+      while (simple < params) {
+        if (params % simple == 0) {
+          return false;
+        }
+        simple++;
+      }
+      return true;
     }
 
     // Задание 2
@@ -34,15 +48,15 @@
 
     // Задание 3
     console.log('Задание 3');
-    for(var number = 0; number <= 9; console.log(number++ + " ")){/*здесь пусто*/}
+    for (var number = 0; number <= 9; console.log(number++ + " ")) { /*здесь пусто*/ }
 
     // Задание 4
     console.log('Задание 4');
     var pyramid = "";
-    for(var i = 1; i <= 20; i++){
-				pyramid += "x";
-				console.log(pyramid);
-			}
+    for (var i = 1; i <= 20; i++) {
+      pyramid += "x";
+      console.log(pyramid);
+    }
   </script>
 </body>
 
