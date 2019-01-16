@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Урок 4</title>
+</head>
+
+<body>
+  <script>
+    console.log("Задание 1");
+    var object = {};
+    var number;
+    var number = +prompt("Введите число от 0 до 999");
+
+    if (number >= 0 && number <= 999) {
+      object["единицы"] = number % 10;
+      object["десятки"] = parseInt((number % 100) / 10);
+      object["сотни"] = parseInt(number / 100);
+      console.log(object);
+      var res = '';
+      for (const item in object) {
+        res += item + '\t' + object[item];
+        res += '\n';
+      }
+      alert(res);
+    } else {
+      console.log(object);
+    }
+
+    console.log("Задание 2");
+    window.open('4/task-2/game.html');
+
+
+    console.log("Задание 3");
+    document.write(
+      '<button class="btn" style="width: 200px; height: 70px; font-size: 20px;">Запустить миллионера!</button>');
+
+    document.querySelector('.btn').addEventListener('click', millioner);
+
+    function millioner() {
+      var questions = [{
+          q: "1. Как правильно закончить пословицу: «Не откладывай на завтра то, что можно…»?",
+          a1: '1) сделать сегодня',
+          a2: '2) сделать послезавтра',
+          a3: '3) сделать через месяц',
+          a4: '4) никогда не делать',
+          correct: 1
+        },
+        {
+          q: "2. Что говорит человек, когда замечает нечто необычное?",
+          a1: '1) попало в лоб',
+          a2: '2) залетело в рот',
+          a3: '3) накапало в уши',
+          a4: '4) бросилось в глаза',
+          correct: 4
+        },
+        {
+          q: "3. Что помогает туристу ориентироваться в незнакомом городе?",
+          a1: '1) путепровод',
+          a2: '2) путеукладчик',
+          a3: '3) путеводитель',
+          a4: '4) путеводная звезда',
+          correct: 3
+        },
+        {
+          q: "4. Какой наряд прославил баснописец Крылов?",
+          a1: '1) тришкин кафтан',
+          a2: '2) ивашкин армяк',
+          a3: '3) прошкин зипун',
+          a4: '4) машкин сарафан',
+          correct: 1
+        },
+        {
+          q: "5. Как звали старшую сестру императора Петра Первого?",
+          a1: '1) Вера',
+          a2: '2) Надежда',
+          a3: '3) Любовь',
+          a4: '4) Софья',
+          correct: 4
+        }
+      ];
+
+
+      var win = 0,
+        cost = [100, 200, 300, 400, 500];
+
+      alert("Добро пожаловать на игру «Кто хочет стать миллионером?»" +
+        '\n' +
+        "Всего будет задано " + questions.length + " вопросов" +
+        '\n' +
+        "Сумму, которую Вы будете получать за верный ответ показана ниже:" +
+        '\n' +
+        cost +
+        '\n' +
+        "При неудачном ответе, игра будет завершена, весь Ваш выйгрыш будет анулирован." +
+        '\n' +
+        '\n' +
+        "Для запуска игры нажните 'Ок'");
+
+      var mesage = '';
+
+      for (let index = 0; index < questions.length; index++) {
+        var question = +prompt(questions[index].q +
+          '\n' +
+          questions[index].a1 +
+          '\n' +
+          questions[index].a2 +
+          '\n' +
+          questions[index].a3 +
+          '\n' +
+          questions[index].a4);
+
+
+        if (question === questions[index].correct) {
+          win += cost[index];
+          var isEnd = "Переходим к следующему вопросу.";
+          if ((index + 1) == questions.length) {
+            isEnd = "";
+          }
+          alert("Правильный ответ! " + isEnd +
+            '\n' +
+            "Ваш выйгрыш составляет: " + win);
+        } else if (question === 0) {
+          break;
+        } else {
+          win = 0;
+
+          alert("К сожалению Вы проиграли :(" +
+            '\n' +
+            "Правильный ответ был: " + questions[index]["a" + questions[index].correct] +
+            '\n' +
+            "Ваш выйгрыш составил: " + win);
+          break;
+        }
+      }
+
+      if (confirm("Спасибо за игру!" + '\n' + "Хотите сыграть еще раз?")) {
+        millioner();
+      }
+    }
+  </script>
+</body>
+
+</html>
