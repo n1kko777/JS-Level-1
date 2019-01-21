@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Урок 5</title>
+</head>
+
+<body>
+  <style>
+    td {
+      width: 25px;
+      height: 25px;
+      font-size: 20px;
+      text-align: center;
+      line-height: 25px;
+    }
+
+    .black {
+      border: 1px solid #000;
+    }
+  </style>
+  <script>
+    console.log('Задание 1');
+    var table = document.createElement("table"),
+      number = ["", 1, 2, 3, 4, 5, 6, 7, 8, ""].reverse(),
+      letter = ["", "A", "B", "C", "D", "E", "F", "G", "H", ""],
+      symbolWhite = ["&#9814;", "&#9816;", "&#9815;", "&#9813;", "&#9812;", "&#9815;", "&#9816;", "&#9814;", "&#9817;"],
+      symbolBlack = ["&#9820;", "&#9822;", "&#9821;", "&#9819;", "&#9818;", "&#9821;", "&#9822;", "&#9820;", "&#9823;"];
+
+
+    for (var i = 1; i < 9; i++) {
+      var tr = document.createElement('tr');
+      for (var j = 1; j < 11; j++) {
+        var td = document.createElement('td');
+
+        if (j > 1 && j < 10) {
+          if (j < 10) {
+            if (i == 1) {
+              td.innerHTML = symbolBlack[j - 2];
+            } else if (i == 2) {
+              td.innerHTML = symbolBlack[symbolBlack.length - 1];
+            } else if (i == 7) {
+              td.innerHTML = symbolWhite[symbolWhite.length - 1];
+            } else if (i == 8) {
+              td.innerHTML = symbolWhite[j - 2];
+            }
+          }
+
+          if (i % 2 == j % 2) {
+            td.className = "black";
+          } else {
+            td.className = "white";
+          }
+        } else if (j == 1) {
+          td.innerHTML = number[i];
+        } else if (j == 10) {
+          td.innerHTML = number[i];
+          td.style.transform = "rotate(180deg)";
+        }
+
+        tr.appendChild(td);
+      }
+      table.appendChild(tr);
+    }
+
+    var trRev = document.createElement('tr');
+    var tr = document.createElement('tr');
+
+    for (var i = 1; i < 11; i++) {
+      var tdRev = document.createElement('td'),
+        td = document.createElement('td');
+
+      tdRev.innerText = letter[i - 1];
+      td.innerText = letter[i - 1];
+      tdRev.style.transform = "rotate(180deg)";
+      trRev.appendChild(tdRev);
+      tr.appendChild(td);
+    }
+
+    table.insertBefore(trRev, table.children[0]);
+    table.insertBefore(tr, table.children[table.childNodes.length]);
+
+    document.body.appendChild(table);
+  </script>
+</body>
+
+</html>
