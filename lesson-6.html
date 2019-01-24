@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Урок 6</title>
+  <style>
+    body {
+      margin: 0 auto;
+      padding: 0;
+      max-width: 1147px;
+
+    }
+
+    .photo-container {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: 100px 340px;
+      grid-gap: 20px;
+    }
+
+    .small_photo {
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+    }
+
+    .big_photo {
+      width: 340px;
+      height: 340px;
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+
+    .shop {
+      display: grid;
+      grid-template-columns: 49% 49%;
+      justify-content: space-between;
+      min-height: 400px;
+      border-bottom: 1px solid #000;
+    }
+
+    .cart {
+      border-left: 1px solid #000;
+      padding-left: 20px;
+      padding-bottom: 20px;
+      max-height: 500px;
+      position: relative;
+      overflow-y: scroll;
+    }
+
+    .products {
+      padding-bottom: 20px;
+    }
+
+    .product-card {
+      display: inline-block;
+      text-align: center;
+      width: 155px;
+      height: 250px;
+      border: 1px solid #000;
+      padding: 10px;
+      padding-bottom: 20px;
+    }
+
+    .product-card:not(:nth-child(4)) {
+      margin-right: 10px;
+    }
+
+    .product-card__img {
+      width: 100px;
+      height: 100px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .product-card__price {
+      display: block;
+      font-family: sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid #000;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script>
+    var app = document.querySelector('#app'),
+      ttl = document.createElement('h1'),
+      task1 = document.createElement('div'),
+      bigImg = document.createElement('img');
+
+    ttl.innerText = "Задание 1";
+
+    app.appendChild(ttl);
+
+    task1.className = "photo-container";
+    for (let index = 1; index <= 3; index++) {
+      var smImg = document.createElement('img');
+
+      smImg.src = "6/small_photo/item-" + index + ".jpg";
+      smImg.className = "small_photo";
+      smImg.id = "smImg-" + index;
+      smImg.addEventListener('click', function (event) {
+        bigImg.onload = function () {
+          bigImg.alt = "";
+        };
+        bigImg.onerror = function () {
+          bigImg.alt = "Картинка не найдена!";
+        };
+        bigImg.src = "6/big_photo/item-" + event.target.id.slice(-1) + ".jpg";
+        bigImg.className = "big_photo";
+        task1.appendChild(bigImg);
+      });
+
+      task1.appendChild(smImg);
+    }
+    app.appendChild(task1);
+
+    var ttl = document.createElement('h1'),
+      task2 = document.createElement('div'),
+      cart = document.createElement('div'),
+      products = document.createElement('div'),
+      totalTtl = document.createElement('h2')
+    totalPrice = 0;
+
+    ttl.innerText = "Задание 2";
+
+    app.appendChild(ttl);
+
+    task2.className = "shop";
+    cart.className = "cart";
+    totalTtl.innerText = "Итого: $ " + totalPrice;
+
+    cart.appendChild(totalTtl);
+
+    products.className = "products";
+
+
+    for (let index = 1; index <= 3; index++) {
+      var productCard = document.createElement('div'),
+        productCardImg = document.createElement('img'),
+        productCardBtn = document.createElement('button');
+
+      productCard.className = "product-card";
+
+      productCard.innerHTML += "<h3>Карточка товара " + index + "</h3>";
+      productCardImg.src = "6/small_photo/item-" + index + ".jpg";
+      productCardImg.className = "product-card__img";
+
+      productCard.appendChild(productCardImg);
+
+      productCard.innerHTML += "<span class='product-card__price'>$ " + Math.floor(Math.random() * (100 - 10) + 10) +
+        "</span>";
+
+      productCardBtn.innerText = "Купить";
+      productCardBtn.style.cssText = "cursor: pointer;";
+      productCardBtn.addEventListener('click', addToCart);
+      productCard.appendChild(productCardBtn);
+
+      products.appendChild(productCard);
+
+      task2.appendChild(products);
+
+    }
+
+    function addToCart() {
+      var shopCard = this.parentNode.childNodes,
+        cartItem = document.createElement('div');
+      cartItem.className = "cart-item";
+      cartItem.innerHTML += "<span>" + shopCard[0].innerText + "</span>";
+      cartItem.innerHTML += "<span>" + shopCard[2].innerText + "</span>";
+      totalPrice += parseInt(shopCard[2].innerText.replace('$ ', ""));
+      totalTtl.innerText = "Итого: $ " + totalPrice;
+
+      cart.insertBefore(totalTtl, cart.firstChild);
+      cart.insertBefore(cartItem, cart.children[1]);
+    }
+
+    task2.appendChild(cart);
+
+    app.appendChild(task2);
+
+    var ttl = document.createElement('h1'),
+      task3 = document.createElement("div"),
+      next = document.createElement('img'),
+      prev = document.createElement('img'),
+      slide = document.createElement('img')
+      imgMass = ["6/small_photo/item-1.jpg", "6/small_photo/item-2.jpg", "6/small_photo/item-3.jpg"]
+      i = 0;
+
+    ttl.innerText = "Задание 3";
+
+    task3.className = "slider";
+
+    task3.appendChild(ttl);
+
+    next.src =
+      "data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMxLjQ5IDMxLjQ5IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAzMS40OSAzMS40OTsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIxMjhweCIgaGVpZ2h0PSIxMjhweCI+CjxwYXRoIGQ9Ik0yMS4yMDUsNS4wMDdjLTAuNDI5LTAuNDQ0LTEuMTQzLTAuNDQ0LTEuNTg3LDBjLTAuNDI5LDAuNDI5LTAuNDI5LDEuMTQzLDAsMS41NzFsOC4wNDcsOC4wNDdIMS4xMTEgIEMwLjQ5MiwxNC42MjYsMCwxNS4xMTgsMCwxNS43MzdjMCwwLjYxOSwwLjQ5MiwxLjEyNywxLjExMSwxLjEyN2gyNi41NTRsLTguMDQ3LDguMDMyYy0wLjQyOSwwLjQ0NC0wLjQyOSwxLjE1OSwwLDEuNTg3ICBjMC40NDQsMC40NDQsMS4xNTksMC40NDQsMS41ODcsMGw5Ljk1Mi05Ljk1MmMwLjQ0NC0wLjQyOSwwLjQ0NC0xLjE0MywwLTEuNTcxTDIxLjIwNSw1LjAwN3oiIGZpbGw9IiMwMDAwMDAiLz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==";
+    next.alt = "следующая";
+    next.style.display = "inline-block";
+    next.style.verticalAlign = "middle";
+    next.style.cursor = "pointer";
+    next.addEventListener('click', nextPhoto);
+    prev.src =
+      "data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDMxLjQ5NCAzMS40OTQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMxLjQ5NCAzMS40OTQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTI4cHgiIGhlaWdodD0iMTI4cHgiPgo8cGF0aCBkPSJNMTAuMjczLDUuMDA5YzAuNDQ0LTAuNDQ0LDEuMTQzLTAuNDQ0LDEuNTg3LDBjMC40MjksMC40MjksMC40MjksMS4xNDMsMCwxLjU3MWwtOC4wNDcsOC4wNDdoMjYuNTU0ICBjMC42MTksMCwxLjEyNywwLjQ5MiwxLjEyNywxLjExMWMwLDAuNjE5LTAuNTA4LDEuMTI3LTEuMTI3LDEuMTI3SDMuODEzbDguMDQ3LDguMDMyYzAuNDI5LDAuNDQ0LDAuNDI5LDEuMTU5LDAsMS41ODcgIGMtMC40NDQsMC40NDQtMS4xNDMsMC40NDQtMS41ODcsMGwtOS45NTItOS45NTJjLTAuNDI5LTAuNDI5LTAuNDI5LTEuMTQzLDAtMS41NzFMMTAuMjczLDUuMDA5eiIgZmlsbD0iIzAwMDAwMCIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K";
+    prev.alt = "предыдущая";
+    prev.style.display = "inline-block";
+    prev.style.verticalAlign = "middle";
+    prev.style.cursor = "pointer";
+    prev.addEventListener('click', prevPhoto);
+
+    slide.src = imgMass[i];
+    slide.style.cssText = "width: 500px; height: 500px; margin: 0 20px;"; 
+    slide.style.display = "inline-block";
+    slide.style.verticalAlign = "middle";
+    slide.onerror = function () {
+      slide.alt = "Картинка не найдена";
+    };
+
+
+    function prevPhoto() {
+      if (i == 0) {
+        i = imgMass.length;
+      }
+      slide.src = imgMass[--i];
+    }
+
+    function nextPhoto() {
+      if (i == imgMass.length-1) {
+        i = -1;
+      }
+      slide.src = imgMass[++i];
+    }
+
+    task3.appendChild(prev);
+    task3.appendChild(slide);
+    task3.appendChild(next);
+
+    app.appendChild(task3);
+  </script>
+</body>
+
+</html>
